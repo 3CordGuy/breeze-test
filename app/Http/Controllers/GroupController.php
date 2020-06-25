@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GroupCollection;
 use Illuminate\Http\Request;
-
-// use App\Http\Resources\GroupsCollection;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
 
@@ -17,7 +16,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        return new GroupCollection(Group::all());
     }
 
     /**
@@ -57,7 +56,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+        return new GroupResource(Group::findOrFail($id));
     }
 
     /**
@@ -80,7 +79,10 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $group = Group::findOrFail($id);
+        $group->update($request->all());
+
+        return response()->json(null, 204);
     }
 
     /**
@@ -91,6 +93,9 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $group = Group::findOrFail($id);
+        $group->delete();
+
+        return response()->json(null, 204);
     }
 }
