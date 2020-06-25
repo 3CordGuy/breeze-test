@@ -13,7 +13,7 @@ class GroupControllerTest extends TestCase
     public function testGroupCreated()
     {
         $expected = [
-            'group_name' => 'Volunteers'
+            'name' => 'Volunteers'
         ];
         $response = $this->json('POST', '/api/group', $expected);
         $response
