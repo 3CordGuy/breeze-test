@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\PersonResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class GroupResource extends JsonResource
@@ -16,9 +17,10 @@ class GroupResource extends JsonResource
     {
         return [
             'id'            => $this->id,
-            'name'    => $this->name,
+            'name'          => $this->name,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
+            'members'       => PersonResource::collection($this->members)
         ];
     }
 }
