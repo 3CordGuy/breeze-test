@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Group extends Model
 {
     protected $fillable = [
-        'group_name',
+        'group_name'
     ];
 }
