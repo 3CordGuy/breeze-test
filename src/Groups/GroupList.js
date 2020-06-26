@@ -59,7 +59,7 @@ class GroupList extends Component {
                     <Icon name="users" />
                     Groups
                 </Header>
-                <Table celled padded sortable selectable>
+                <Table celled padded basic="very" sortable>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell

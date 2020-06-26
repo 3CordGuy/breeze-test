@@ -65,7 +65,7 @@ class GroupMembersList extends Component {
                 <Header as="h1">
                     {group} <Header.Subheader>Group Members</Header.Subheader>
                 </Header>
-                <Table celled padded sortable>
+                <Table celled padded basic="very" sortable>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell

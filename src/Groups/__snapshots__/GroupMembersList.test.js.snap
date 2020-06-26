@@ -27,6 +27,7 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
   </Header>
   <Table
     as="table"
+    basic="very"
     celled={true}
     padded={true}
     sortable={true}
