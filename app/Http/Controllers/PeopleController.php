@@ -21,7 +21,7 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        return new PeopleCollection(Person::all());
+        return new PeopleCollection(Person::all()->where('status', '=', 'active'));
     }
 
     /**
@@ -55,7 +55,7 @@ class PeopleController extends Controller
             return response()->json([
                 "message" => "Invalid Body"
             ], 400);
-       }
+        }
 
         $people = $request->toArray();
         $to_db = [];
