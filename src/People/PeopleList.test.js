@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ResultsList from './ResultsList';
+import PeopleList from './PeopleList';
 
 let wrapper, data;
 
-describe('<ResultsList />', () => {
+describe('<PeopleList />', () => {
 
     beforeAll(() => {
-        wrapper = shallow(<ResultsList />)
+        wrapper = shallow(<PeopleList />)
         data = [{
             "id": 132,
             "first_name": "Macie",
