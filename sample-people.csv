@@ -1,0 +1,6 @@
+id, first_name, last_name, email_address, status
+1, "Leslie", "Knope", "leslise@pawnee.in.gov", active
+2, "Jerry", "Gergich", "garry@pawnee.in.gov", "archived"
+3, "Fred", "Flintstone", "fredflintstone@example.com", "active"
+4, "Marie", "Bourne", "mbourne@example.com", "active"
+5, "Wilma", "Flintstone", "wilmaflinstone@example.com", "active"
