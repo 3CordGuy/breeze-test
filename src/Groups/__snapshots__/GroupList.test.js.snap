@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GroupList /> should match the snapshot 1`] = `
+<Fragment>
+  <Header
+    as="h1"
+  >
+    Groups
+  </Header>
+  <Table
+    as="table"
+    celled={true}
+    padded={true}
+    selectable={true}
+    sortable={true}
+  >
+    <TableHeader
+      as="thead"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+      >
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          singleLine={true}
+          sorted="descending"
+        >
+          Name
+        </TableHeaderCell>
+      </TableRow>
+    </TableHeader>
+    <TableBody
+      as="tbody"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        key="0"
+      >
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          <Link
+            to="#"
+          >
+            Awesome Group
+          </Link>
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Fragment>
+`;
