@@ -2,12 +2,6 @@ import React from "react";
 import { Link } from "@reach/router";
 
 const MainNav = (props) => {
-    console.log(props);
-
-    /* 
-      I realize this is not the proper api for matching routes with Reach router
-      but I need to move on to other important features to complete this challenge
-    */
     const get_item_class_for_route = (route) => {
         return props["*"].split("/")[0] === route ? "active item" : "item";
     };
