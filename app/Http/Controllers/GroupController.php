@@ -8,6 +8,7 @@ use App\Http\Resources\GroupResource;
 use App\Models\Group;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class GroupController extends Controller
 {
@@ -58,9 +59,15 @@ class GroupController extends Controller
      */
     public function import(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             '*.name'     => 'required|max:255'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "Invalid Body"
+            ], 400);
+       }
 
         $groups = $request->toArray();
         $to_db = [];
