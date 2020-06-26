@@ -44,7 +44,7 @@ exports[`<GroupList /> should match the snapshot 1`] = `
           singleLine={true}
         >
           <Link
-            to="#"
+            to="group/132"
           >
             Awesome Group
           </Link>

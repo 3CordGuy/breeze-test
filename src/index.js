@@ -4,6 +4,7 @@ import { Container, Header } from "semantic-ui-react";
 import { Router } from "@reach/router";
 
 import GroupList from "./Groups/GroupList";
+import GroupMembersList from "./Groups/GroupMembersList";
 import PeopleList from "./People/PeopleList";
 
 const App = ({ children }) => (
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Router>
             <GroupList path="/" />
             <PeopleList path="/people" />
+            <GroupMembersList path="/group/:group_id" />
         </Router>
     </App>,
     document.getElementById("root"),

@@ -65,7 +65,9 @@ class GroupList extends Component {
                             return (
                                 <Table.Row key={index}>
                                     <Table.Cell singleLine>
-                                        <Link to="#">{group.name}</Link>
+                                        <Link to={`group/${group.id}`}>
+                                            {group.name}
+                                        </Link>
                                     </Table.Cell>
                                 </Table.Row>
                             );
