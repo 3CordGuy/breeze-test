@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Header, Button, Icon, TableRow } from "semantic-ui-react";
+import { Table, Header, Button, Icon, Dimmer, Loader } from "semantic-ui-react";
 import _ from "lodash";
 
 class GroupMembersList extends Component {
@@ -50,11 +50,18 @@ class GroupMembersList extends Component {
     }
 
     render() {
-        let { column, direction, members, group } = this.state;
+        let { column, direction, members, group, loading } = this.state;
 
         return (
             <>
-                <Header as="h1">{group}</Header>
+                {loading && (
+                    <Dimmer active inverted>
+                        <Loader>Loading Data...</Loader>
+                    </Dimmer>
+                )}
+                <Header as="h1">
+                    {group} <Header.Subheader>Group Members</Header.Subheader>
+                </Header>
                 <Table celled padded sortable>
                     <Table.Header>
                         <Table.Row>
