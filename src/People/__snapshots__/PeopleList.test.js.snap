@@ -12,6 +12,7 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
   </Dimmer>
   <Header
     as="h1"
+    dividing={true}
   >
     <Icon
       as="i"
@@ -21,6 +22,12 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
       People
     </HeaderContent>
   </Header>
+  <Button
+    as="button"
+    primary={true}
+  >
+    Import People
+  </Button>
   <Table
     as="table"
     celled={true}
@@ -54,6 +61,14 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
         >
           Status
         </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        >
+          Group
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        />
       </TableRow>
     </TableHeader>
     <TableBody
@@ -87,6 +102,41 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
           singleLine={true}
         >
           active
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          N/A
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+          textAlign="center"
+        >
+          <Button
+            as="button"
+            circular={true}
+            icon={true}
+            primary={true}
+          >
+            <Icon
+              as="i"
+              name="edit"
+            />
+          </Button>
+          <Button
+            as="button"
+            basic={true}
+            circular={true}
+            icon={true}
+            negative={true}
+          >
+            <Icon
+              as="i"
+              name="trash"
+            />
+          </Button>
         </TableCell>
       </TableRow>
     </TableBody>

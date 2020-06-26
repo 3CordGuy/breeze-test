@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Dimmer, Loader, Header, Icon } from "semantic-ui-react";
+import { Table, Dimmer, Loader, Header, Icon, Button } from "semantic-ui-react";
 
 class PeopleList extends Component {
     constructor(props) {
@@ -24,10 +24,11 @@ class PeopleList extends Component {
                         <Loader>Loading Data...</Loader>
                     </Dimmer>
                 )}
-                <Header as="h1">
+                <Header as="h1" dividing>
                     <Icon name="user" />
                     <Header.Content>People</Header.Content>
                 </Header>
+                <Button primary>Import People</Button>
                 <Table celled padded>
                     <Table.Header>
                         <Table.Row>
@@ -37,6 +38,8 @@ class PeopleList extends Component {
                             <Table.HeaderCell>Last Name</Table.HeaderCell>
                             <Table.HeaderCell>Email</Table.HeaderCell>
                             <Table.HeaderCell>Status</Table.HeaderCell>
+                            <Table.HeaderCell>Group</Table.HeaderCell>
+                            <Table.HeaderCell></Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
@@ -55,6 +58,20 @@ class PeopleList extends Component {
                                     </Table.Cell>
                                     <Table.Cell singleLine>
                                         {person.status}
+                                    </Table.Cell>
+                                    <Table.Cell singleLine>
+                                        {person.group
+                                            ? person.group.name
+                                            : "N/A"}
+                                    </Table.Cell>
+
+                                    <Table.Cell singleLine textAlign="center">
+                                        <Button icon circular primary>
+                                            <Icon name="edit" />
+                                        </Button>
+                                        <Button icon negative basic circular>
+                                            <Icon name="trash" />
+                                        </Button>
                                     </Table.Cell>
                                 </Table.Row>
                             );
