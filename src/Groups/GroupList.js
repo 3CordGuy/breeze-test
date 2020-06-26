@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Table, Header, Dimmer, Loader, Icon } from "semantic-ui-react";
+import { Table, Header, Dimmer, Loader, Icon, Button } from "semantic-ui-react";
 import { Link } from "@reach/router";
 import _ from "lodash";
+import dayjs from "dayjs";
 
 class GroupList extends Component {
     constructor(props) {
@@ -36,12 +37,18 @@ class GroupList extends Component {
     componentDidMount() {
         fetch("http://localhost:8000/api/groups")
             .then((response) => response.json())
-            .then(({ data }) =>
+            .then(({ data }) => {
+                data = data.map((row) => ({
+                    ...row,
+                    // unix timestamp for easier sorting
+                    timestamp: dayjs(row.created_at).valueOf(),
+                }));
+
                 this.setState({
                     loading: false,
                     data: _.sortBy(data, ["name", "descending"]),
-                }),
-            );
+                });
+            });
     }
 
     render() {
@@ -55,10 +62,12 @@ class GroupList extends Component {
                         <Loader>Loading Data...</Loader>
                     </Dimmer>
                 )}
-                <Header as="h1">
+                <Header as="h1" dividing>
                     <Icon name="users" />
                     Groups
                 </Header>
+
+                <Button primary>Import Groups</Button>
                 <Table celled padded basic="very" sortable>
                     <Table.Header>
                         <Table.Row>
@@ -68,6 +77,14 @@ class GroupList extends Component {
                                 onClick={this.handleSort("name")}
                             >
                                 Name
+                            </Table.HeaderCell>
+                            <Table.HeaderCell
+                                sorted={
+                                    column === "timestamp" ? direction : null
+                                }
+                                onClick={this.handleSort("timestamp")}
+                            >
+                                Date Created
                             </Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -80,6 +97,14 @@ class GroupList extends Component {
                                         <Link to={`${group.id}`}>
                                             {group.name}
                                         </Link>
+                                        <Link to={`${group.id}`}>
+                                            {group.name}
+                                        </Link>
+                                    </Table.Cell>
+                                    <Table.Cell singleLine>
+                                        {dayjs(group.created_at).format(
+                                            "MMMM D, YYYY",
+                                        )}
                                     </Table.Cell>
                                 </Table.Row>
                             );

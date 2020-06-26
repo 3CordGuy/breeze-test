@@ -12,6 +12,7 @@ exports[`<GroupList /> should match the snapshot 1`] = `
   </Dimmer>
   <Header
     as="h1"
+    dividing={true}
   >
     <Icon
       as="i"
@@ -19,6 +20,12 @@ exports[`<GroupList /> should match the snapshot 1`] = `
     />
     Groups
   </Header>
+  <Button
+    as="button"
+    primary={true}
+  >
+    Import Groups
+  </Button>
   <Table
     as="table"
     basic="very"
@@ -41,6 +48,13 @@ exports[`<GroupList /> should match the snapshot 1`] = `
         >
           Name
         </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          sorted={null}
+        >
+          Date Created
+        </TableHeaderCell>
       </TableRow>
     </TableHeader>
     <TableBody
@@ -60,6 +74,17 @@ exports[`<GroupList /> should match the snapshot 1`] = `
           >
             Awesome Group
           </Link>
+          <Link
+            to="132"
+          >
+            Awesome Group
+          </Link>
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          July 20, 2019
         </TableCell>
       </TableRow>
     </TableBody>
