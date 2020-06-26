@@ -22,7 +22,9 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
       >
         <TableHeaderCell
           as="th"
+          onClick={[Function]}
           singleLine={true}
+          sorted={null}
         >
           First Name
         </TableHeaderCell>
@@ -36,6 +38,8 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
         </TableHeaderCell>
         <TableHeaderCell
           as="th"
+          onClick={[Function]}
+          sorted={null}
         >
           Email
         </TableHeaderCell>
