@@ -13,6 +13,10 @@ exports[`<GroupList /> should match the snapshot 1`] = `
   <Header
     as="h1"
   >
+    <Icon
+      as="i"
+      name="users"
+    />
     Groups
   </Header>
   <Table
@@ -52,7 +56,7 @@ exports[`<GroupList /> should match the snapshot 1`] = `
           singleLine={true}
         >
           <Link
-            to="groups/132"
+            to="132"
           >
             Awesome Group
           </Link>

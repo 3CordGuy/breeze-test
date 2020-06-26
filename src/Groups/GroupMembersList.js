@@ -35,6 +35,7 @@ class GroupMembersList extends Component {
 
     componentDidMount() {
         let { group_id } = this.props;
+
         fetch(`http://localhost:8000/api/groups/${group_id}`)
             .then((response) => response.json())
             .then(({ data }) => {
@@ -51,6 +52,7 @@ class GroupMembersList extends Component {
 
     render() {
         let { column, direction, members, group, loading } = this.state;
+        let goto = this.props.navigate;
 
         return (
             <>
@@ -59,6 +61,7 @@ class GroupMembersList extends Component {
                         <Loader>Loading Data...</Loader>
                     </Dimmer>
                 )}
+                <Button onClick={() => goto("/groups")}>Back</Button>
                 <Header as="h1">
                     {group} <Header.Subheader>Group Members</Header.Subheader>
                 </Header>

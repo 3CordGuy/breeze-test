@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Header, Dimmer, Loader } from "semantic-ui-react";
+import { Table, Header, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { Link } from "@reach/router";
 import _ from "lodash";
 
@@ -55,7 +55,10 @@ class GroupList extends Component {
                         <Loader>Loading Data...</Loader>
                     </Dimmer>
                 )}
-                <Header as="h1">Groups</Header>
+                <Header as="h1">
+                    <Icon name="users" />
+                    Groups
+                </Header>
                 <Table celled padded sortable selectable>
                     <Table.Header>
                         <Table.Row>
@@ -74,7 +77,7 @@ class GroupList extends Component {
                             return (
                                 <Table.Row key={index}>
                                     <Table.Cell singleLine>
-                                        <Link to={`groups/${group.id}`}>
+                                        <Link to={`${group.id}`}>
                                             {group.name}
                                         </Link>
                                     </Table.Cell>

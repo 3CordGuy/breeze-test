@@ -10,6 +10,12 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
       Loading Data...
     </Loader>
   </Dimmer>
+  <Button
+    as="button"
+    onClick={[Function]}
+  >
+    Back
+  </Button>
   <Header
     as="h1"
   >

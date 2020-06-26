@@ -1,74 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PeopleList /> should match the snapshot 1`] = `
-<Table
-  as="table"
-  celled={true}
-  padded={true}
->
-  <TableHeader
-    as="thead"
+<Fragment>
+  <Dimmer
+    active={true}
+    inverted={true}
   >
-    <TableRow
-      as="tr"
-      cellAs="td"
-    >
-      <TableHeaderCell
-        as="th"
-        singleLine={true}
-      >
-        First Name
-      </TableHeaderCell>
-      <TableHeaderCell
-        as="th"
-      >
-        Last Name
-      </TableHeaderCell>
-      <TableHeaderCell
-        as="th"
-      >
-        Email
-      </TableHeaderCell>
-      <TableHeaderCell
-        as="th"
-      >
-        Status
-      </TableHeaderCell>
-    </TableRow>
-  </TableHeader>
-  <TableBody
-    as="tbody"
+    <Loader>
+      Loading Data...
+    </Loader>
+  </Dimmer>
+  <Header
+    as="h1"
   >
-    <TableRow
-      as="tr"
-      cellAs="td"
-      key="0"
+    <Icon
+      as="i"
+      name="user"
+    />
+    <HeaderContent>
+      People
+    </HeaderContent>
+  </Header>
+  <Table
+    as="table"
+    celled={true}
+    padded={true}
+  >
+    <TableHeader
+      as="thead"
     >
-      <TableCell
-        as="td"
-        singleLine={true}
+      <TableRow
+        as="tr"
+        cellAs="td"
       >
-        Macie
-      </TableCell>
-      <TableCell
-        as="td"
-        singleLine={true}
+        <TableHeaderCell
+          as="th"
+          singleLine={true}
+        >
+          First Name
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        >
+          Last Name
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        >
+          Email
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        >
+          Status
+        </TableHeaderCell>
+      </TableRow>
+    </TableHeader>
+    <TableBody
+      as="tbody"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        key="0"
       >
-        Emmerich
-      </TableCell>
-      <TableCell
-        as="td"
-        singleLine={true}
-      >
-        cremin.marjory@hotmail.com
-      </TableCell>
-      <TableCell
-        as="td"
-        singleLine={true}
-      >
-        active
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          Macie
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          Emmerich
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          cremin.marjory@hotmail.com
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          active
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Fragment>
 `;
