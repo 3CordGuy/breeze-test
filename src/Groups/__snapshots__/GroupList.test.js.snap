@@ -2,6 +2,14 @@
 
 exports[`<GroupList /> should match the snapshot 1`] = `
 <Fragment>
+  <Dimmer
+    active={true}
+    inverted={true}
+  >
+    <Loader>
+      Loading Data...
+    </Loader>
+  </Dimmer>
   <Header
     as="h1"
   >
@@ -44,7 +52,7 @@ exports[`<GroupList /> should match the snapshot 1`] = `
           singleLine={true}
         >
           <Link
-            to="group/132"
+            to="groups/132"
           >
             Awesome Group
           </Link>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Header } from "semantic-ui-react";
+import { Table, Header, Dimmer, Loader } from "semantic-ui-react";
 import { Link } from "@reach/router";
 import _ from "lodash";
 
@@ -7,6 +7,7 @@ class GroupList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             data: [],
             column: "name",
             direction: "descending",
@@ -36,16 +37,24 @@ class GroupList extends Component {
         fetch("http://localhost:8000/api/groups")
             .then((response) => response.json())
             .then(({ data }) =>
-                this.setState({ data: _.sortBy(data, ["name", "descending"]) }),
+                this.setState({
+                    loading: false,
+                    data: _.sortBy(data, ["name", "descending"]),
+                }),
             );
     }
 
     render() {
         let data = this.state.data || [];
-        let { column, direction } = this.state;
+        let { column, direction, loading } = this.state;
 
         return (
             <>
+                {loading && (
+                    <Dimmer active inverted>
+                        <Loader>Loading Data...</Loader>
+                    </Dimmer>
+                )}
                 <Header as="h1">Groups</Header>
                 <Table celled padded sortable selectable>
                     <Table.Header>
@@ -65,7 +74,7 @@ class GroupList extends Component {
                             return (
                                 <Table.Row key={index}>
                                     <Table.Cell singleLine>
-                                        <Link to={`group/${group.id}`}>
+                                        <Link to={`groups/${group.id}`}>
                                             {group.name}
                                         </Link>
                                     </Table.Cell>

@@ -14,7 +14,7 @@ const MainNav = (props) => {
 
     return (
         <div className="ui attached tabular menu">
-            <Link to="/" className={get_item_class_for_route("")}>
+            <Link to="/groups" className={get_item_class_for_route("groups")}>
                 All Groups
             </Link>
             <Link to="/people" className={get_item_class_for_route("people")}>
