@@ -6,6 +6,8 @@ use App\Http\Resources\GroupCollection;
 use Illuminate\Http\Request;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class GroupController extends Controller
 {
@@ -46,6 +48,34 @@ class GroupController extends Controller
         return (new GroupResource($group))
             ->response()
             ->setStatusCode(201);
+    }
+
+    /**
+     * Store multiple group resources in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function import(Request $request)
+    {
+        $request->validate([
+            '*.name'     => 'required|max:255'
+        ]);
+
+        $groups = $request->toArray();
+        $to_db = [];
+        $now = Carbon::now();
+
+        foreach ($groups as $group) {
+            $group['created_at'] = $now;
+            $group['updated_at'] = $now;
+
+            array_push($to_db, $group);
+        }
+
+        DB::table('groups')->insert($to_db);
+
+        return response()->json(null, 204);
     }
 
     /**
