@@ -36,7 +36,7 @@ ReactDOM.render(
             <Redirect from="/" to="/groups" noThrow />
             <GroupList path="/groups" />
             <PeopleList path="/people" />
-            <GroupMembersList path="/groups/:group_id" na />
+            <GroupMembersList path="/groups/:group_id" />
         </App>
     </Router>,
     document.getElementById("root"),
