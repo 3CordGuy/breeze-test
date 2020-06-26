@@ -12,10 +12,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('people-import', [
+	'as' => 'people-import',
+	'uses' => 'PeopleController@import'
+]);
+
 Route::resource('people', 'PeopleController');
 
 Route::post('groups-import', [
 	'as' => 'groups-import',
 	'uses' => 'GroupController@import'
 ]);
+
 Route::resource('groups', 'GroupController');

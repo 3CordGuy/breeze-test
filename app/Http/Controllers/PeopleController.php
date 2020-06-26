@@ -8,6 +8,9 @@ use Illuminate\Validation\Rule;
 use App\Http\Resources\PeopleCollection;
 use App\Http\Resources\PersonResource;
 use App\Models\Person;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class PeopleController extends Controller
 {
@@ -29,6 +32,45 @@ class PeopleController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Store multiple group resources in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function import(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            '*.first_name'    => 'required|max:255',
+            '*.last_name'     => 'required|max:255',
+            '*.email_address' => 'required|email',
+            '*.status'        => Rule::in(['active', 'archived']),
+            '*.group_id'      => 'integer'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "Invalid Body"
+            ], 400);
+       }
+
+        $people = $request->toArray();
+        $to_db = [];
+        $now = Carbon::now();
+
+        foreach ($people as $person) {
+            $person['created_at'] = $now;
+            $person['updated_at'] = $now;
+
+            array_push($to_db, $person);
+        }
+
+        DB::table('people')->insert($to_db);
+
+        return response()->json(null, 204);
     }
 
     /**
