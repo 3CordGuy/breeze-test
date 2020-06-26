@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\GroupResource;
 
 class GroupCollection extends ResourceCollection
 {
@@ -15,7 +16,8 @@ class GroupCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection
+            'data' => $this->collection,
+            'total' => GroupResource::collection($this->collection)->count()
         ];
     }
 }
