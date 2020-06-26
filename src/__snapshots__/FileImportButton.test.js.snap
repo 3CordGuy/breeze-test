@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FileImportButton /> should match the snapshot 1`] = `
+<Button
+  as="button"
+  onClick={[Function]}
+  primary={true}
+>
+  <input
+    accept=".csv"
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+  It's dangerous to go alone... take this CSV file.
+</Button>
+`;
