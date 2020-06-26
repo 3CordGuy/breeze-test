@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ImportModal /> should match the snapshot 1`] = `
+<div>
+  <Modal
+    centered={true}
+    closeOnDimmerClick={false}
+    closeOnDocumentClick={false}
+    closeOnEscape={false}
+    dimmer={true}
+    eventPool="Modal"
+    open={true}
+  >
+    <ModalHeader>
+      We are about to import 
+      0
+       record(s)
+    </ModalHeader>
+    <ModalContent>
+      <p>
+        Are you sure you want to continue?
+      </p>
+    </ModalContent>
+    <ModalActions>
+      <Button
+        as="button"
+        basic={true}
+        negative={true}
+      >
+        Cancel
+      </Button>
+      <Button
+        as="button"
+        content="Yes"
+        icon="checkmark"
+        labelPosition="right"
+        positive={true}
+      />
+    </ModalActions>
+  </Modal>
+</div>
+`;
