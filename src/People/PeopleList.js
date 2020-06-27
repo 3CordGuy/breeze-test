@@ -30,7 +30,7 @@ class PeopleList extends Component {
                     <Header.Content>People</Header.Content>
                 </Header>
                 <Button primary>Import People</Button>
-                <Table celled padded>
+                <Table celled padded basic="very">
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell singleLine>

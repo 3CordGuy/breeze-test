@@ -30,6 +30,7 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
   </Button>
   <Table
     as="table"
+    basic="very"
     celled={true}
     padded={true}
   >
