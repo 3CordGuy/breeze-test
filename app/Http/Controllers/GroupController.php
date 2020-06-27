@@ -60,6 +60,7 @@ class GroupController extends Controller
     public function import(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            '*.id'       => 'numeric|nullable',
             '*.name'     => 'required|max:255'
         ]);
 

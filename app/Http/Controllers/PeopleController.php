@@ -40,15 +40,17 @@ class PeopleController extends Controller
      */
     public function import(Request $request)
     {
+        Log::info('REQUEST RECEIVED', $request->toArray());
 
         $validator = Validator::make($request->all(), [
-            '*.id'            => 'integer',
+            '*.id'            => 'numeric|nullable',
             '*.first_name'    => 'required|max:255',
             '*.last_name'     => 'required|max:255',
             '*.email_address' => 'required|email',
             '*.status'        => Rule::in(['active', 'archived']),
-            '*.group_id'      => 'integer'
+            '*.group_id'      => 'numeric|nullable'
         ]);
+        Log::info('::::::::::::::::DOING VALIDATION::::::::::::::::');
 
         if ($validator->fails()) {
             return response()->json([
@@ -56,10 +58,13 @@ class PeopleController extends Controller
             ], 400);
         }
 
+        Log::info('GOT PAST VALIDATION......');
+
         foreach ($request->toArray() as $person) {
             if (isset($person['id'])) {
                 Person::updateOrCreate(['id' => $person['id']], $person);
             } else {
+                unset($person['id']);
                 Person::create($person);
             }
         }
