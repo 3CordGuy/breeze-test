@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Table, Dimmer, Loader, Header, Icon, Button } from "semantic-ui-react";
+import { Link } from "@reach/router";
 
 class PeopleList extends Component {
     constructor(props) {
@@ -60,9 +61,15 @@ class PeopleList extends Component {
                                         {person.status}
                                     </Table.Cell>
                                     <Table.Cell singleLine>
-                                        {person.group
-                                            ? person.group.name
-                                            : "N/A"}
+                                        {person.group ? (
+                                            <Link
+                                                to={`/groups/${person.group.id}`}
+                                            >
+                                                {person.group.name}
+                                            </Link>
+                                        ) : (
+                                            "N/A"
+                                        )}
                                     </Table.Cell>
 
                                     <Table.Cell singleLine textAlign="center">
