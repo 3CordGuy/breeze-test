@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Table, Header, Dimmer, Loader, Icon, Button } from "semantic-ui-react";
+import { Table, Header, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { Link } from "@reach/router";
 import _ from "lodash";
 import dayjs from "dayjs";
+import ImportCSV from "../ImportCSV";
 
 class GroupList extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class GroupList extends Component {
         });
     };
 
-    componentDidMount() {
+    fetchGroups = () => {
         fetch("http://localhost:8000/api/groups")
             .then((response) => response.json())
             .then(({ data }) => {
@@ -49,6 +50,10 @@ class GroupList extends Component {
                     data: _.sortBy(data, ["name", "descending"]),
                 });
             });
+    };
+
+    componentDidMount() {
+        this.fetchGroups();
     }
 
     render() {
@@ -67,7 +72,11 @@ class GroupList extends Component {
                     Groups
                 </Header>
 
-                <Button primary>Import Groups</Button>
+                <ImportCSV
+                    text="Import Groups"
+                    onFinishImport={this.fetchGroups}
+                />
+
                 <Table celled padded basic="very" sortable>
                     <Table.Header>
                         <Table.Row>

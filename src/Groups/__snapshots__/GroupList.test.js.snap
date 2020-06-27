@@ -20,12 +20,10 @@ exports[`<GroupList /> should match the snapshot 1`] = `
     />
     Groups
   </Header>
-  <Button
-    as="button"
-    primary={true}
-  >
-    Import Groups
-  </Button>
+  <FileImportButton
+    onFinishImport={[Function]}
+    text="Import Groups"
+  />
   <Table
     as="table"
     basic="very"
