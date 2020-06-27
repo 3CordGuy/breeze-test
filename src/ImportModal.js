@@ -6,8 +6,8 @@ const ImportModal = ({
     onClose,
     onConfirm,
     closeModal,
-    records = [],
-    fields = [],
+    confirmText,
+    children,
 }) => {
     return (
         <div>
@@ -17,12 +17,8 @@ const ImportModal = ({
                 closeOnDimmerClick={false}
                 onClose={onClose}
             >
-                <Modal.Header>
-                    We are about to import {records.length} record(s)
-                </Modal.Header>
-                <Modal.Content>
-                    <p>Are you sure you want to continue?</p>
-                </Modal.Content>
+                <Modal.Header>We are almost ready to import...</Modal.Header>
+                <Modal.Content>{children}</Modal.Content>
                 <Modal.Actions>
                     <Button onClick={closeModal} basic negative>
                         Cancel
@@ -32,7 +28,7 @@ const ImportModal = ({
                         positive
                         labelPosition="right"
                         icon="checkmark"
-                        content="Yes"
+                        content={confirmText || "Yes"}
                     />
                 </Modal.Actions>
             </Modal>

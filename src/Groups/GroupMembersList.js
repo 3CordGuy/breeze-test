@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Table, Header, Button, Icon, Dimmer, Loader } from "semantic-ui-react";
+import { Table, Header, Button, Dimmer, Loader } from "semantic-ui-react";
 import _ from "lodash";
+import ImportCSV from "../ImportCSV";
 
 class GroupMembersList extends Component {
     constructor(props) {
@@ -14,13 +15,13 @@ class GroupMembersList extends Component {
         };
     }
 
-    handleSort = (clickedColumn) => () => {
+    handleSort = (clicked_column) => () => {
         const { column, members, direction } = this.state;
 
-        if (column !== clickedColumn) {
+        if (column !== clicked_column) {
             this.setState({
-                column: clickedColumn,
-                members: _.sortBy(members, [clickedColumn]),
+                column: clicked_column,
+                members: _.sortBy(members, [clicked_column]),
                 direction: "ascending",
             });
 
@@ -34,6 +35,10 @@ class GroupMembersList extends Component {
     };
 
     componentDidMount() {
+        this.fetchGroupMembers();
+    }
+
+    fetchGroupMembers = () => {
         let { group_id } = this.props;
 
         fetch(`http://localhost:8000/api/groups/${group_id}`)
@@ -48,11 +53,10 @@ class GroupMembersList extends Component {
                     group: data.name,
                 });
             });
-    }
+    };
 
     render() {
         let { column, direction, members, group, loading } = this.state;
-        let goto = this.props.navigate;
 
         return (
             <>
@@ -61,10 +65,17 @@ class GroupMembersList extends Component {
                         <Loader>Loading Data...</Loader>
                     </Dimmer>
                 )}
-                <Button onClick={() => goto("/groups")}>Back</Button>
-                <Header as="h1">
+                <Header as="h1" dividing>
                     {group} <Header.Subheader>Group Members</Header.Subheader>
                 </Header>
+
+                <Button onClick={() => window.history.back()}>Back</Button>
+
+                <ImportCSV
+                    text="Import Members"
+                    onFinishImport={this.fetchGroupMembers}
+                />
+
                 <Table celled padded basic="very" sortable>
                     <Table.Header>
                         <Table.Row>
@@ -118,7 +129,7 @@ class GroupMembersList extends Component {
                                             singleLine
                                             textAlign="center"
                                         >
-                                            <Button icon circular primary>
+                                            {/* <Button icon circular primary>
                                                 <Icon name="edit" />
                                             </Button>
                                             <Button
@@ -128,7 +139,7 @@ class GroupMembersList extends Component {
                                                 circular
                                             >
                                                 <Icon name="trash" />
-                                            </Button>
+                                            </Button> */}
                                         </Table.Cell>
                                     </Table.Row>
                                 );

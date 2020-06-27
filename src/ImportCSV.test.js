@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import FileImportButton from "./FileImportButton";
+import FileImportButton from "./ImportCSV";
 
 let wrapper;
 

@@ -12,15 +12,9 @@ exports[`<ImportModal /> should match the snapshot 1`] = `
     open={true}
   >
     <ModalHeader>
-      We are about to import 
-      0
-       record(s)
+      We are almost ready to import...
     </ModalHeader>
-    <ModalContent>
-      <p>
-        Are you sure you want to continue?
-      </p>
-    </ModalContent>
+    <ModalContent />
     <ModalActions>
       <Button
         as="button"

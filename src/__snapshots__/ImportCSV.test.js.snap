@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FileImportButton /> should match the snapshot 1`] = `
+<Fragment>
+  <Button
+    as="button"
+    onClick={[Function]}
+    primary={true}
+  >
+    <input
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+      value=""
+    />
+    It's dangerous to go alone... take this CSV file.
+  </Button>
+  <ImportModal
+    closeModal={[Function]}
+    confirmText="Let's do it!"
+    fields={Array []}
+    onConfirm={[Function]}
+    records={Array []}
+    showModal={false}
+  >
+    <p>
+      Good News! We found
+       
+      <strong>
+        0
+         
+        People
+      </strong>
+       
+      in your file that we can import.
+    </p>
+  </ImportModal>
+</Fragment>
+`;

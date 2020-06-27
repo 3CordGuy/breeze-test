@@ -10,14 +10,9 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
       Loading Data...
     </Loader>
   </Dimmer>
-  <Button
-    as="button"
-    onClick={[Function]}
-  >
-    Back
-  </Button>
   <Header
     as="h1"
+    dividing={true}
   >
     Awesome Group
      
@@ -25,6 +20,16 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
       Group Members
     </HeaderSubheader>
   </Header>
+  <Button
+    as="button"
+    onClick={[Function]}
+  >
+    Back
+  </Button>
+  <FileImportButton
+    onFinishImport={[Function]}
+    text="Import Members"
+  />
   <Table
     as="table"
     basic="very"
@@ -108,31 +113,7 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
           as="td"
           singleLine={true}
           textAlign="center"
-        >
-          <Button
-            as="button"
-            circular={true}
-            icon={true}
-            primary={true}
-          >
-            <Icon
-              as="i"
-              name="edit"
-            />
-          </Button>
-          <Button
-            as="button"
-            basic={true}
-            circular={true}
-            icon={true}
-            negative={true}
-          >
-            <Icon
-              as="i"
-              name="trash"
-            />
-          </Button>
-        </TableCell>
+        />
       </TableRow>
     </TableBody>
   </Table>
