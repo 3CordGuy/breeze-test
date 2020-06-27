@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GroupMembersList /> should match the snapshot 1`] = `
+<Fragment>
+  <Dimmer
+    active={true}
+    inverted={true}
+  >
+    <Loader>
+      Loading Data...
+    </Loader>
+  </Dimmer>
+  <Header
+    as="h1"
+    dividing={true}
+  >
+    Awesome Group
+     
+    <HeaderSubheader>
+      Group Members
+    </HeaderSubheader>
+  </Header>
+  <Button
+    as="button"
+    onClick={[Function]}
+  >
+    Back
+  </Button>
+  <FileImportButton
+    onFinishImport={[Function]}
+    text="Import Members"
+  />
+  <Table
+    as="table"
+    basic="very"
+    celled={true}
+    padded={true}
+    sortable={true}
+  >
+    <TableHeader
+      as="thead"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+      >
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          singleLine={true}
+          sorted={null}
+        >
+          First Name
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          singleLine={true}
+          sorted="descending"
+        >
+          Last Name
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          sorted={null}
+        >
+          Email
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        >
+          Status
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+        />
+      </TableRow>
+    </TableHeader>
+    <TableBody
+      as="tbody"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        key="0"
+      >
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          Macie
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          Emmerich
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          cremin.marjory@hotmail.com
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          active
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+          textAlign="center"
+        />
+      </TableRow>
+    </TableBody>
+  </Table>
+</Fragment>
+`;

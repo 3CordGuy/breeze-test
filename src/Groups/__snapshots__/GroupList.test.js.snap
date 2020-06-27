@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GroupList /> should match the snapshot 1`] = `
+<Fragment>
+  <Dimmer
+    active={true}
+    inverted={true}
+  >
+    <Loader>
+      Loading Data...
+    </Loader>
+  </Dimmer>
+  <Header
+    as="h1"
+    dividing={true}
+  >
+    <Icon
+      as="i"
+      name="users"
+    />
+    Groups
+  </Header>
+  <Button
+    as="button"
+    primary={true}
+  >
+    Import Groups
+  </Button>
+  <Table
+    as="table"
+    basic="very"
+    celled={true}
+    padded={true}
+    sortable={true}
+  >
+    <TableHeader
+      as="thead"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+      >
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          singleLine={true}
+          sorted="descending"
+        >
+          Name
+        </TableHeaderCell>
+        <TableHeaderCell
+          as="th"
+          onClick={[Function]}
+          sorted={null}
+        >
+          Date Created
+        </TableHeaderCell>
+      </TableRow>
+    </TableHeader>
+    <TableBody
+      as="tbody"
+    >
+      <TableRow
+        as="tr"
+        cellAs="td"
+        key="0"
+      >
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          <Link
+            to="132"
+          >
+            Awesome Group
+          </Link>
+          <Link
+            to="132"
+          >
+            Awesome Group
+          </Link>
+        </TableCell>
+        <TableCell
+          as="td"
+          singleLine={true}
+        >
+          July 20, 2019
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Fragment>
+`;
