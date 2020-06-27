@@ -8,9 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Resources\PeopleCollection;
 use App\Http\Resources\PersonResource;
 use App\Models\Person;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Carbon;
 
 class PeopleController extends Controller
 {
@@ -44,6 +42,7 @@ class PeopleController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
+            '*.id'            => 'integer',
             '*.first_name'    => 'required|max:255',
             '*.last_name'     => 'required|max:255',
             '*.email_address' => 'required|email',
@@ -57,18 +56,13 @@ class PeopleController extends Controller
             ], 400);
         }
 
-        $people = $request->toArray();
-        $to_db = [];
-        $now = Carbon::now();
-
-        foreach ($people as $person) {
-            $person['created_at'] = $now;
-            $person['updated_at'] = $now;
-
-            array_push($to_db, $person);
+        foreach ($request->toArray() as $person) {
+            if (isset($person['id'])) {
+                Person::updateOrCreate(['id' => $person['id']], $person);
+            } else {
+                Person::create($person);
+            }
         }
-
-        DB::table('people')->insert($to_db);
 
         return response()->json(null, 204);
     }

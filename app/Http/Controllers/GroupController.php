@@ -67,20 +67,15 @@ class GroupController extends Controller
             return response()->json([
                 "message" => "Invalid Body"
             ], 400);
-       }
-
-        $groups = $request->toArray();
-        $to_db = [];
-        $now = Carbon::now();
-
-        foreach ($groups as $group) {
-            $group['created_at'] = $now;
-            $group['updated_at'] = $now;
-
-            array_push($to_db, $group);
         }
 
-        DB::table('groups')->insert($to_db);
+        foreach ($request->toArray() as $group) {
+            if (isset($group['id'])) {
+                Group::updateOrCreate(['id' => $group['id']], $group);
+            } else {
+                Group::create($group);
+            }
+        }
 
         return response()->json(null, 204);
     }
