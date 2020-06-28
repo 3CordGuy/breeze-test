@@ -57,7 +57,7 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
         <TableHeaderCell
           as="th"
           onClick={[Function]}
-          sorted="descending"
+          sorted="ascending"
         >
           Last Name
         </TableHeaderCell>

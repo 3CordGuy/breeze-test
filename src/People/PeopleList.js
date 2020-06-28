@@ -18,7 +18,7 @@ class PeopleList extends Component {
         super(props);
         this.state = {
             column: "last_name",
-            direction: "descending",
+            direction: "ascending",
             data: [],
             groups: [],
             loading: true,
@@ -29,7 +29,7 @@ class PeopleList extends Component {
         this.setState({ loading: true });
         API.getPeople().then(({ data }) =>
             this.setState({
-                data: _.sortBy(data, ["last_name", "descending"]),
+                data: _.sortBy(data, ["last_name", "ascending"]),
                 loading: false,
             }),
         );
@@ -60,7 +60,7 @@ class PeopleList extends Component {
             this.setState({
                 column: clicked_column,
                 data: _.sortBy(data, [clicked_column]),
-                direction: "ascending",
+                direction: "descending",
             });
 
             return;

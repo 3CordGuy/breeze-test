@@ -148,20 +148,39 @@ describe("<PeopleList />", () => {
         });
     });
 
-    it("should initially sort list by person last_name", () => {
-        const wrapper = mount(<PeopleList />);
-        wrapper.setState({ data: PEOPLE_LIST_RESPONSE.data });
+    it("should sort list by person last_name", () => {
+        const componentWrapper = mount(<PeopleList />);
+        const data = []
+            .concat(PEOPLE_LIST_RESPONSE.data[0])
+            .concat(PEOPLE_LIST_RESPONSE.data[1]);
 
-        let nameHeader = wrapper.find("th.descending.sorted");
+        componentWrapper.setState({
+            column: "last_name",
+            direction: "ascending",
+            data: _.sortBy(data, ["last_name", "ascending"]),
+        });
 
-        nameHeader.simulate("click");
-
-        expect(wrapper.state().data).toEqual(
-            _.sortBy(PEOPLE_LIST_RESPONSE.data, ["name", "descending"]),
+        expect(componentWrapper.state().data).toEqual(
+            _.sortBy(data, ["last_name", "ascending"]),
         );
+    });
+
+    it("should sort list by person last_name desc when clicked", () => {
+        const componentWrapper = mount(<PeopleList />);
+        const data = []
+            .concat(PEOPLE_LIST_RESPONSE.data[0])
+            .concat(PEOPLE_LIST_RESPONSE.data[1]);
+
+        componentWrapper.setState({
+            column: "last_name",
+            direction: "ascending",
+            data: _.sortBy(data, ["last_name", "ascending"]),
+        });
+
+        let nameHeader = componentWrapper.find("th.ascending");
 
         nameHeader.simulate("click");
 
-        expect(wrapper.state().data).toEqual(PEOPLE_LIST_RESPONSE.data);
+        expect(componentWrapper.state().data).toEqual(data);
     });
 });
