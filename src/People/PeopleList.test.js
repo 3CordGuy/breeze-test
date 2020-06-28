@@ -97,31 +97,52 @@ describe("<PeopleList />", () => {
 
 // UNIT TESTS
 describe("<PeopleList />", () => {
-    beforeAll(() => {
-        wrapper = shallow(<PeopleList />);
-        wrapper.setState({ loading: false });
+    it("should show a proper loader", () => {
+        const wrapper = mount(<PeopleList />);
+        wrapper.setState({ loading: true });
+
+        let loader = wrapper.find("div.loader");
+
+        expect(loader.text()).toBe("Loading Data...");
     });
 
-    it.skip("should show a loader", () => {
+    it("should warn when trying to delete a person", () => {
         const wrapper = mount(<PeopleList />);
-        expect(wrapper.someWhere()).toEqual(1);
+        window.confirm = jest.fn();
+        wrapper.setState({
+            data: [
+                {
+                    id: 132,
+                    first_name: "Jim",
+                    last_name: "Halpert",
+                    email_address: "jim.halpert@dundermifflin.com",
+                    status: "active",
+                    updated_at: "2019-07-20 22:05:47",
+                    created_at: "2019-07-20 22:05:47",
+                },
+            ],
+        });
+
+        let trashButton = wrapper.find("button.negative");
+        trashButton.simulate("click");
+
+        expect(window.confirm).toBeCalled();
     });
 
     it("should fetch the people async", () => {
-        const promise = new Promise((resolve, reject) =>
-            resolve(PEOPLE_LIST_RESPONSE),
-        );
+        const promise = new Promise((resolve) => resolve(PEOPLE_LIST_RESPONSE));
 
         API.getPeople = jest.fn(() => promise);
 
         const wrapper = mount(<PeopleList />);
 
         expect(wrapper.find("table tbody").length).toEqual(1);
+        console.log(wrapper.find("table tbody"));
 
         promise.then(() => {
             setImmediate(() => {
                 wrapper.update();
-                expect(wrapper.find("table tbody").length).toEqual(2);
+                expect(wrapper.find("table tbody tr").length).toEqual(4);
 
                 API.getPeople.mockClear();
             });
