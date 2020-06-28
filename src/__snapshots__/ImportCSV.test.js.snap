@@ -22,9 +22,7 @@ exports[`<FileImportButton /> should match the snapshot 1`] = `
   <ImportModal
     closeModal={[Function]}
     confirmText="Let's do it!"
-    fields={Array []}
     onConfirm={[Function]}
-    records={Array []}
     showModal={false}
   >
     <p>
@@ -38,6 +36,9 @@ exports[`<FileImportButton /> should match the snapshot 1`] = `
        
       in your file that we can import.
     </p>
+    <strong>
+      Preview First Record
+    </strong>
   </ImportModal>
 </Fragment>
 `;
