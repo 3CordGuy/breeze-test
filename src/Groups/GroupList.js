@@ -13,7 +13,7 @@ class GroupList extends Component {
             loading: true,
             data: [],
             column: "name",
-            direction: "descending",
+            direction: "asc",
         };
     }
 
@@ -23,8 +23,8 @@ class GroupList extends Component {
         if (column !== clickedColumn) {
             this.setState({
                 column: clickedColumn,
-                data: _.sortBy(data, [clickedColumn]),
-                direction: "ascending",
+                data: _.orderBy(data, [clickedColumn], ["asc"]),
+                direction: "asc",
             });
 
             return;
@@ -32,7 +32,7 @@ class GroupList extends Component {
 
         this.setState({
             data: data.reverse(),
-            direction: direction === "ascending" ? "descending" : "ascending",
+            direction: direction === "asc" ? "desc" : "asc",
         });
     };
 
@@ -47,7 +47,7 @@ class GroupList extends Component {
 
             this.setState({
                 loading: false,
-                data: _.sortBy(data, ["name", "descending"]),
+                data: _.orderBy(data, "name", ["asc"]),
             });
         });
     };
@@ -59,6 +59,7 @@ class GroupList extends Component {
     render() {
         let data = this.state.data || [];
         let { column, direction, loading } = this.state;
+        direction = direction === "asc" ? "ascending" : "descending";
 
         return (
             <>

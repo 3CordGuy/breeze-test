@@ -50,7 +50,7 @@ exports[`<GroupList /> should match the snapshot 1`] = `
           as="th"
           onClick={[Function]}
           singleLine={true}
-          sorted="descending"
+          sorted="ascending"
         >
           Name
         </TableHeaderCell>

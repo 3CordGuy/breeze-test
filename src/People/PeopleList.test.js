@@ -156,12 +156,12 @@ describe("<PeopleList />", () => {
 
         componentWrapper.setState({
             column: "last_name",
-            direction: "ascending",
-            data: _.sortBy(data, ["last_name", "ascending"]),
+            direction: "asc",
+            data: _.orderBy(data, "last_name", ["asc"]),
         });
 
         expect(componentWrapper.state().data).toEqual(
-            _.sortBy(data, ["last_name", "ascending"]),
+            _.orderBy(data, "last_name", ["asc"]),
         );
     });
 
@@ -173,8 +173,8 @@ describe("<PeopleList />", () => {
 
         componentWrapper.setState({
             column: "last_name",
-            direction: "ascending",
-            data: _.sortBy(data, ["last_name", "ascending"]),
+            direction: "asc",
+            data: _.orderBy(data, "last_name", ["asc"]),
         });
 
         let nameHeader = componentWrapper.find("th.ascending");

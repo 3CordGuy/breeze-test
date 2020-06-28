@@ -77,18 +77,24 @@ describe("<GroupList />", () => {
 
     it("should sort list by group name", () => {
         const wrapper = mount(<GroupList />);
-        wrapper.setState({ data: GROUP_LIST.data });
+        wrapper.setState({
+            direction: "asc",
+            data: _.orderBy(GROUP_LIST.data, "name", ["asc"]),
+        });
 
-        let nameHeader = wrapper.find("th.descending.sorted");
+        let nameHeader = wrapper.find("th.ascending.sorted");
 
         nameHeader.simulate("click");
+        wrapper.update();
 
         expect(wrapper.state().data).toEqual(
-            _.sortBy(GROUP_LIST.data, ["name", "descending"]),
+            _.orderBy(GROUP_LIST.data, "name", ["desc"]),
         );
 
         nameHeader.simulate("click");
 
-        expect(wrapper.state().data).toEqual(GROUP_LIST.data);
+        expect(wrapper.state().data).toEqual(
+            _.orderBy(wrapper.state().data, "name", ["asc"]),
+        );
     });
 });

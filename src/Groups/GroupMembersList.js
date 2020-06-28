@@ -22,7 +22,7 @@ class GroupMembersList extends Component {
             group: "Group",
             members: [],
             column: "last_name",
-            direction: "descending",
+            direction: "asc",
         };
     }
 
@@ -32,8 +32,8 @@ class GroupMembersList extends Component {
         if (column !== clicked_column) {
             this.setState({
                 column: clicked_column,
-                members: _.sortBy(members, [clicked_column]),
-                direction: "ascending",
+                members: _.orderBy(members, [clicked_column], ["asc"]),
+                direction: "asc",
             });
 
             return;
@@ -41,7 +41,7 @@ class GroupMembersList extends Component {
 
         this.setState({
             members: members.reverse(),
-            direction: direction === "ascending" ? "descending" : "ascending",
+            direction: direction === "asc" ? "desc" : "asc",
         });
     };
 
@@ -70,7 +70,7 @@ class GroupMembersList extends Component {
         API.getGroup(group_id).then(({ data }) => {
             this.setState({
                 loading: false,
-                members: _.sortBy(data.members, ["last_name", "descending"]),
+                members: _.orderBy(data.members, ["last_name", "asc"]),
                 group: data.name,
             });
         });
@@ -78,6 +78,7 @@ class GroupMembersList extends Component {
 
     render() {
         let { column, direction, members, group, loading } = this.state;
+        direction = direction === "asc" ? "ascending" : "descending";
 
         return (
             <>
