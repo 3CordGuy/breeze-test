@@ -22,12 +22,6 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
       People
     </HeaderContent>
   </Header>
-  <Button
-    as="button"
-    primary={true}
-  >
-    Import People
-  </Button>
   <Table
     as="table"
     basic="very"
@@ -108,7 +102,26 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
           as="td"
           singleLine={true}
         >
-          N/A
+          <Dropdown
+            additionLabel="Add "
+            additionPosition="top"
+            closeOnBlur={true}
+            closeOnEscape={true}
+            deburr={false}
+            icon="dropdown"
+            minCharacters={1}
+            noResultsMessage="No results found."
+            onChange={[Function]}
+            openOnFocus={true}
+            options={Array []}
+            placeholder="Add to Group"
+            renderLabel={[Function]}
+            searchInput="text"
+            selectOnBlur={true}
+            selectOnNavigation={true}
+            selection={true}
+            wrapSelection={true}
+          />
         </TableCell>
         <TableCell
           as="td"
@@ -117,21 +130,11 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
         >
           <Button
             as="button"
-            circular={true}
-            icon={true}
-            primary={true}
-          >
-            <Icon
-              as="i"
-              name="edit"
-            />
-          </Button>
-          <Button
-            as="button"
             basic={true}
             circular={true}
             icon={true}
             negative={true}
+            onClick={[Function]}
           >
             <Icon
               as="i"
