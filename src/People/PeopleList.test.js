@@ -137,7 +137,6 @@ describe("<PeopleList />", () => {
         const wrapper = mount(<PeopleList />);
 
         expect(wrapper.find("table tbody").length).toEqual(1);
-        console.log(wrapper.find("table tbody"));
 
         promise.then(() => {
             setImmediate(() => {
