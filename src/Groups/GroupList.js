@@ -3,7 +3,7 @@ import { Table, Header, Dimmer, Loader, Icon } from "semantic-ui-react";
 import { Link } from "@reach/router";
 import _ from "lodash";
 import dayjs from "dayjs";
-import ImportCSV from "../ImportCSV";
+import API from "../API";
 
 class GroupList extends Component {
     constructor(props) {
@@ -35,25 +35,24 @@ class GroupList extends Component {
         });
     };
 
-    fetchGroups = () => {
-        fetch("http://localhost:8000/api/groups")
-            .then((response) => response.json())
-            .then(({ data }) => {
-                data = data.map((row) => ({
-                    ...row,
-                    // unix timestamp for easier sorting
-                    timestamp: dayjs(row.created_at).valueOf(),
-                }));
+    getGroups = () => {
+        this.setState({ loading: true });
+        API.getGroups().then(({ data }) => {
+            data = data.map((row) => ({
+                ...row,
+                // unix timestamp for easier sorting
+                timestamp: dayjs(row.created_at).valueOf(),
+            }));
 
-                this.setState({
-                    loading: false,
-                    data: _.sortBy(data, ["name", "descending"]),
-                });
+            this.setState({
+                loading: false,
+                data: _.sortBy(data, ["name", "descending"]),
             });
+        });
     };
 
     componentDidMount() {
-        this.fetchGroups();
+        this.getGroups();
     }
 
     render() {
@@ -71,11 +70,6 @@ class GroupList extends Component {
                     <Icon name="users" />
                     Groups
                 </Header>
-
-                <ImportCSV
-                    text="Import Groups"
-                    onFinishImport={this.fetchGroups}
-                />
 
                 <Table celled padded basic="very" sortable>
                     <Table.Header>
@@ -99,25 +93,38 @@ class GroupList extends Component {
                     </Table.Header>
 
                     <Table.Body>
-                        {data.map((group, index) => {
-                            return (
-                                <Table.Row key={index}>
-                                    <Table.Cell singleLine>
-                                        <Link to={`${group.id}`}>
-                                            {group.name}
-                                        </Link>
-                                        <Link to={`${group.id}`}>
-                                            {group.name}
-                                        </Link>
-                                    </Table.Cell>
-                                    <Table.Cell singleLine>
-                                        {dayjs(group.created_at).format(
-                                            "MMMM D, YYYY",
-                                        )}
-                                    </Table.Cell>
-                                </Table.Row>
-                            );
-                        })}
+                        {data.length ? (
+                            data.map((group, index) => {
+                                return (
+                                    <Table.Row key={index}>
+                                        <Table.Cell singleLine>
+                                            <Link to={`${group.id}`}>
+                                                {group.name}
+                                            </Link>
+                                        </Table.Cell>
+                                        <Table.Cell singleLine>
+                                            {dayjs(group.created_at).format(
+                                                "MMMM D, YYYY",
+                                            )}
+                                        </Table.Cell>
+                                    </Table.Row>
+                                );
+                            })
+                        ) : (
+                            <Table.Row>
+                                <Table.Cell textAlign="center">
+                                    There are no Groups yet!{" "}
+                                    <span
+                                        role="img"
+                                        aria-label="sad face"
+                                        style={{ fontSize: "2rem" }}
+                                    >
+                                        🙁
+                                    </span>
+                                </Table.Cell>
+                                <Table.Cell />
+                            </Table.Row>
+                        )}
                     </Table.Body>
                 </Table>
             </>

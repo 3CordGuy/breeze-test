@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { Table, Header, Button, Dimmer, Loader } from "semantic-ui-react";
+import {
+    Table,
+    Header,
+    Button,
+    Dimmer,
+    Loader,
+    Icon,
+    Popup,
+} from "semantic-ui-react";
 import _ from "lodash";
-import ImportCSV from "../ImportCSV";
+import API from "../API";
 
 class GroupMembersList extends Component {
     constructor(props) {
@@ -34,25 +42,35 @@ class GroupMembersList extends Component {
         });
     };
 
+    handleRemove = (person) => {
+        if (
+            window.confirm(
+                `Are you sure you want to remove ${person.first_name} ${person.last_name}?`,
+            )
+        ) {
+            this.setState({ loading: true });
+            person.group_id = null;
+            delete person.group;
+
+            API.updatePerson(person).then(() => this.getGroupMembers());
+        }
+    };
+
     componentDidMount() {
-        this.fetchGroupMembers();
+        this.getGroupMembers();
     }
 
-    fetchGroupMembers = () => {
+    getGroupMembers = () => {
         let { group_id } = this.props;
+        this.setState({ loading: true });
 
-        fetch(`http://localhost:8000/api/groups/${group_id}`)
-            .then((response) => response.json())
-            .then(({ data }) => {
-                this.setState({
-                    loading: false,
-                    members: _.sortBy(data.members, [
-                        "last_name",
-                        "descending",
-                    ]),
-                    group: data.name,
-                });
+        API.getGroup(group_id).then(({ data }) => {
+            this.setState({
+                loading: false,
+                members: _.sortBy(data.members, ["last_name", "descending"]),
+                group: data.name,
             });
+        });
     };
 
     render() {
@@ -70,11 +88,6 @@ class GroupMembersList extends Component {
                 </Header>
 
                 <Button onClick={() => window.history.back()}>Back</Button>
-
-                <ImportCSV
-                    text="Import Members"
-                    onFinishImport={this.fetchGroupMembers}
-                />
 
                 <Table celled padded basic="very" sortable>
                     <Table.Header>
@@ -129,17 +142,24 @@ class GroupMembersList extends Component {
                                             singleLine
                                             textAlign="center"
                                         >
-                                            {/* <Button icon circular primary>
-                                                <Icon name="edit" />
-                                            </Button>
-                                            <Button
-                                                icon
-                                                negative
-                                                basic
-                                                circular
-                                            >
-                                                <Icon name="trash" />
-                                            </Button> */}
+                                            <Popup
+                                                content="Remove from this group"
+                                                trigger={
+                                                    <Button
+                                                        icon
+                                                        circular
+                                                        negative
+                                                        basic
+                                                        onClick={() =>
+                                                            this.handleRemove(
+                                                                person,
+                                                            )
+                                                        }
+                                                    >
+                                                        <Icon name="cancel" />
+                                                    </Button>
+                                                }
+                                            />
                                         </Table.Cell>
                                     </Table.Row>
                                 );

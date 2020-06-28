@@ -20,10 +20,6 @@ exports[`<GroupList /> should match the snapshot 1`] = `
     />
     Groups
   </Header>
-  <FileImportButton
-    onFinishImport={[Function]}
-    text="Import Groups"
-  />
   <Table
     as="table"
     basic="very"
@@ -67,11 +63,6 @@ exports[`<GroupList /> should match the snapshot 1`] = `
           as="td"
           singleLine={true}
         >
-          <Link
-            to="132"
-          >
-            Awesome Group
-          </Link>
           <Link
             to="132"
           >

@@ -26,10 +26,6 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
   >
     Back
   </Button>
-  <FileImportButton
-    onFinishImport={[Function]}
-    text="Import Members"
-  />
   <Table
     as="table"
     basic="very"
@@ -113,7 +109,31 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
           as="td"
           singleLine={true}
           textAlign="center"
-        />
+        >
+          <Popup
+            content="Remove from this group"
+            disabled={false}
+            offset={0}
+            on="hover"
+            pinned={false}
+            position="top left"
+            trigger={
+              <Button
+                as="button"
+                basic={true}
+                circular={true}
+                icon={true}
+                negative={true}
+                onClick={[Function]}
+              >
+                <Icon
+                  as="i"
+                  name="cancel"
+                />
+              </Button>
+            }
+          />
+        </TableCell>
       </TableRow>
     </TableBody>
   </Table>
