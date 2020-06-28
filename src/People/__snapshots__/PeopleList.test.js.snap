@@ -37,6 +37,7 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
     basic="very"
     celled={true}
     padded={true}
+    sortable={true}
   >
     <TableHeader
       as="thead"
@@ -47,27 +48,30 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
       >
         <TableHeaderCell
           as="th"
+          onClick={[Function]}
           singleLine={true}
+          sorted={null}
         >
           First Name
         </TableHeaderCell>
         <TableHeaderCell
           as="th"
+          onClick={[Function]}
+          sorted="descending"
         >
           Last Name
         </TableHeaderCell>
         <TableHeaderCell
           as="th"
+          onClick={[Function]}
+          sorted={null}
         >
           Email
         </TableHeaderCell>
         <TableHeaderCell
           as="th"
-        >
-          Status
-        </TableHeaderCell>
-        <TableHeaderCell
-          as="th"
+          onClick={[Function]}
+          sorted={null}
         >
           Group
         </TableHeaderCell>
@@ -101,12 +105,6 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
           singleLine={true}
         >
           cremin.marjory@hotmail.com
-        </TableCell>
-        <TableCell
-          as="td"
-          singleLine={true}
-        >
-          active
         </TableCell>
         <TableCell
           as="td"

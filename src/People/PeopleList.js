@@ -11,17 +11,27 @@ import {
 import { Link, Location } from "@reach/router";
 import API from "../API";
 import ImportCSV from "../ImportCSV";
+import _ from "lodash";
 
 class PeopleList extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: [], groups: [], loading: true };
+        this.state = {
+            column: "last_name",
+            direction: "descending",
+            data: [],
+            groups: [],
+            loading: true,
+        };
     }
 
     getPeople = () => {
         this.setState({ loading: true });
         API.getPeople().then(({ data }) =>
-            this.setState({ data: data, loading: false }),
+            this.setState({
+                data: _.sortBy(data, ["last_name", "descending"]),
+                loading: false,
+            }),
         );
     };
 
@@ -44,8 +54,25 @@ class PeopleList extends Component {
         this.getGroups();
     }
 
+    handleSort = (clicked_column) => () => {
+        const { column, data, direction } = this.state;
+        if (column !== clicked_column) {
+            this.setState({
+                column: clicked_column,
+                data: _.sortBy(data, [clicked_column]),
+                direction: "ascending",
+            });
+
+            return;
+        }
+
+        this.setState({
+            data: data.reverse(),
+            direction: direction === "ascending" ? "descending" : "ascending",
+        });
+    };
+
     handleAssignGroup = (person, group_id) => {
-        console.log(person, group_id);
         person.group_id = group_id;
         delete person.group;
 
@@ -66,7 +93,7 @@ class PeopleList extends Component {
 
     render() {
         let data = this.state.data || [];
-        let { loading, groups } = this.state;
+        let { loading, groups, column, direction } = this.state;
 
         return (
             <>
@@ -92,16 +119,44 @@ class PeopleList extends Component {
                     </Header.Content>
                 </Header>
 
-                <Table celled padded basic="very">
+                <Table celled padded sortable basic="very">
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell singleLine>
+                            <Table.HeaderCell
+                                singleLine
+                                sorted={
+                                    column === "first_name" ? direction : null
+                                }
+                                onClick={this.handleSort("first_name")}
+                            >
                                 First Name
                             </Table.HeaderCell>
-                            <Table.HeaderCell>Last Name</Table.HeaderCell>
-                            <Table.HeaderCell>Email</Table.HeaderCell>
-                            <Table.HeaderCell>Status</Table.HeaderCell>
-                            <Table.HeaderCell>Group</Table.HeaderCell>
+                            <Table.HeaderCell
+                                sorted={
+                                    column === "last_name" ? direction : null
+                                }
+                                onClick={this.handleSort("last_name")}
+                            >
+                                Last Name
+                            </Table.HeaderCell>
+                            <Table.HeaderCell
+                                sorted={
+                                    column === "email_address"
+                                        ? direction
+                                        : null
+                                }
+                                onClick={this.handleSort("email_address")}
+                            >
+                                Email
+                            </Table.HeaderCell>
+                            <Table.HeaderCell
+                                sorted={
+                                    column === "group.name" ? direction : null
+                                }
+                                onClick={this.handleSort("group.name")}
+                            >
+                                Group
+                            </Table.HeaderCell>
                             <Table.HeaderCell></Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -119,9 +174,6 @@ class PeopleList extends Component {
                                         </Table.Cell>
                                         <Table.Cell singleLine>
                                             {person.email_address}
-                                        </Table.Cell>
-                                        <Table.Cell singleLine>
-                                            {person.status}
                                         </Table.Cell>
                                         <Table.Cell singleLine>
                                             {person.group ? (

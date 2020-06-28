@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import PeopleList from "./PeopleList";
-// import ReactTestUtils from "react-dom/test-utils";
 import API from "../API";
+import _ from "lodash";
 
 let PEOPLE_LIST_RESPONSE = {
     data: [
@@ -146,5 +146,22 @@ describe("<PeopleList />", () => {
                 API.getPeople.mockClear();
             });
         });
+    });
+
+    it("should initially sort list by person last_name", () => {
+        const wrapper = mount(<PeopleList />);
+        wrapper.setState({ data: PEOPLE_LIST_RESPONSE.data });
+
+        let nameHeader = wrapper.find("th.descending.sorted");
+
+        nameHeader.simulate("click");
+
+        expect(wrapper.state().data).toEqual(
+            _.sortBy(PEOPLE_LIST_RESPONSE.data, ["name", "descending"]),
+        );
+
+        nameHeader.simulate("click");
+
+        expect(wrapper.state().data).toEqual(PEOPLE_LIST_RESPONSE.data);
     });
 });
