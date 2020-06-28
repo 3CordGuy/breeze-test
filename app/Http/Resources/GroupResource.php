@@ -20,7 +20,7 @@ class GroupResource extends JsonResource
             'name'          => $this->name,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
-            'members'       => PersonResource::collection($this->members)->where('status', '=', 'active')
+            'members'       => PersonResource::collection($this->members)->where('status', '=', 'active')->toArray()
         ];
     }
 }
