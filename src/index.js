@@ -1,22 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Container, Header, Segment } from "semantic-ui-react";
-import { Router, Redirect } from "@reach/router";
+import { Container, Header, Segment, Menu } from "semantic-ui-react";
+import { Router, Redirect, Location } from "@reach/router";
 
 import GroupList from "./Groups/GroupList";
 import GroupMembersList from "./Groups/GroupMembersList";
 import PeopleList from "./People/PeopleList";
 import MainNav from "./MainNav";
+import ImportCSV from "./ImportCSV";
 
 const App = (props) => {
     return (
         <Container style={{ margin: 20 }}>
-            <Header as="h3">
-                <span role="img" aria-label="logo">
-                    ⛵️
-                </span>{" "}
-                Breeze Church Management{" "}
-            </Header>
+            <Menu borderless>
+                <Menu.Item header>
+                    <span role="img" aria-label="logo">
+                        ⛵️
+                    </span>{" "}
+                    Breeze Church Management
+                </Menu.Item>
+                <Menu.Item>
+                    <Location>
+                        {({ location }) => (
+                            <ImportCSV text="Upload CSV" location={location} />
+                        )}
+                    </Location>
+                </Menu.Item>
+            </Menu>
+            <Header as="h3"></Header>
             <MainNav {...props} />
             <Segment attached="bottom">{props.children}</Segment>
         </Container>
