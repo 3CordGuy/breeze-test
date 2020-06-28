@@ -8,8 +8,9 @@ import {
     Button,
     Dropdown,
 } from "semantic-ui-react";
-import { Link } from "@reach/router";
+import { Link, Location } from "@reach/router";
 import API from "../API";
+import ImportCSV from "../ImportCSV";
 
 class PeopleList extends Component {
     constructor(props) {
@@ -76,7 +77,19 @@ class PeopleList extends Component {
                 )}
                 <Header as="h1" dividing>
                     <Icon name="user" />
-                    <Header.Content>People</Header.Content>
+
+                    <Header.Content as="div" style={{ width: "100%" }}>
+                        People
+                        <Location>
+                            {({ location }) => (
+                                <ImportCSV
+                                    text="Upload CSV"
+                                    location={location}
+                                    onFinish={this.getPeople}
+                                />
+                            )}
+                        </Location>
+                    </Header.Content>
                 </Header>
 
                 <Table celled padded basic="very">

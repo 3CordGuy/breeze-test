@@ -18,7 +18,19 @@ exports[`<GroupList /> should match the snapshot 1`] = `
       as="i"
       name="users"
     />
-    Groups
+    <HeaderContent
+      as="div"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      Groups
+      <Location>
+        <Component />
+      </Location>
+    </HeaderContent>
   </Header>
   <Table
     as="table"

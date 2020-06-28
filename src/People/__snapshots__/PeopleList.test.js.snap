@@ -18,8 +18,18 @@ exports[`<PeopleList /> should match the snapshot 1`] = `
       as="i"
       name="user"
     />
-    <HeaderContent>
+    <HeaderContent
+      as="div"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
       People
+      <Location>
+        <Component />
+      </Location>
     </HeaderContent>
   </Header>
   <Table

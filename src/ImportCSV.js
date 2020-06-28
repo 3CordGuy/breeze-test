@@ -21,7 +21,7 @@ const getSampleRecord = (importType, record) => {
         <Table celled>
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell>Breeze Field</Table.HeaderCell>
+                    <Table.HeaderCell>Breeze Field Matched</Table.HeaderCell>
                     <Table.HeaderCell>Value</Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
@@ -82,12 +82,14 @@ class FileImportButton extends Component {
     };
 
     uploadPeople = () => {
+        const { location } = this.props;
         let people = this.state.csvData;
+        let groupID = getUrlID(location);
 
-        if (this.state.importIntoGroupID) {
+        if (this.state.importIntoGroupID || groupID) {
             people = people.map((person) => ({
                 ...person,
-                group_id: this.state.importIntoGroupID,
+                group_id: this.state.importIntoGroupID || groupID,
             }));
         }
 
@@ -102,9 +104,8 @@ class FileImportButton extends Component {
                     open: false,
                 });
 
-                if (this.props.location.pathname === "/people") {
-                    navigate("/groups");
-                    navigate("/people");
+                if (groupID || this.props.location.pathname === "/people") {
+                    this.props.onFinish && this.props.onFinish();
                 } else {
                     navigate("/people");
                 }
@@ -128,7 +129,7 @@ class FileImportButton extends Component {
                 });
 
                 if (this.props.location.pathname === "/groups") {
-                    API.getGroup();
+                    this.props.onFinish && this.props.onFinish();
                 } else {
                     navigate("/groups");
                 }
@@ -199,7 +200,7 @@ class FileImportButton extends Component {
 
     dismissModal = () => {
         this.setState({ open: false });
-        this.props.onFinishImport && this.props.onFinishImport();
+        this.props.onFinish && this.props.onFinish();
     };
 
     render() {
@@ -213,13 +214,12 @@ class FileImportButton extends Component {
             importButtonValue,
             importContext,
         } = this.state;
-        const { accept, text, location } = this.props;
+        const { accept, text } = this.props;
         const hasGroupID = csvFields.includes("group_id");
-        console.log(location);
 
         return (
             <>
-                <Button primary onClick={this.handleClick}>
+                <Button primary onClick={this.handleClick} floated="right">
                     <input
                         type="file"
                         accept={accept}
@@ -243,7 +243,7 @@ class FileImportButton extends Component {
                         </strong>{" "}
                         in your file that we can import.
                     </p>
-                    <strong>Preview First Record</strong>
+                    <strong>Preview the first record below:</strong>
                     {firstRecord && getSampleRecord(importContext, firstRecord)}
                     {!hasGroupID &&
                     groups.length &&
@@ -255,8 +255,8 @@ class FileImportButton extends Component {
                             </p>{" "}
                             <Dropdown
                                 selection
+                                selectOnBlur={false}
                                 placeholder="Import into Group"
-                                renderLabel={({ name }) => name}
                                 value={importIntoGroupID}
                                 onChange={this.handleGroupSelect}
                                 options={groups}
@@ -277,4 +277,11 @@ function getImportContext(fields) {
     })
         ? "People"
         : "Groups";
+}
+
+function getUrlID(location) {
+    if (!location) return;
+
+    let urlParts = location.pathname && location.pathname.split("/");
+    return urlParts[2];
 }

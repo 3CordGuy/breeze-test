@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Table, Header, Dimmer, Loader, Icon } from "semantic-ui-react";
-import { Link } from "@reach/router";
+import { Link, Location } from "@reach/router";
 import _ from "lodash";
 import dayjs from "dayjs";
 import API from "../API";
+import ImportCSV from "../ImportCSV";
 
 class GroupList extends Component {
     constructor(props) {
@@ -68,7 +69,18 @@ class GroupList extends Component {
                 )}
                 <Header as="h1" dividing>
                     <Icon name="users" />
-                    Groups
+                    <Header.Content as="div" style={{ width: "100%" }}>
+                        Groups
+                        <Location>
+                            {({ location }) => (
+                                <ImportCSV
+                                    text="Upload CSV"
+                                    location={location}
+                                    onFinish={this.getGroups}
+                                />
+                            )}
+                        </Location>
+                    </Header.Content>
                 </Header>
 
                 <Table celled padded basic="very" sortable>

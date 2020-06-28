@@ -11,6 +11,9 @@ import {
 import _ from "lodash";
 import API from "../API";
 
+import { Location } from "@reach/router";
+import ImportCSV from "../ImportCSV";
+
 class GroupMembersList extends Component {
     constructor(props) {
         super(props);
@@ -84,7 +87,19 @@ class GroupMembersList extends Component {
                     </Dimmer>
                 )}
                 <Header as="h1" dividing>
-                    {group} <Header.Subheader>Group Members</Header.Subheader>
+                    <Header.Subheader>Group Members</Header.Subheader>
+                    <Header.Content as="div" style={{ width: "100%" }}>
+                        {group}
+                        <Location>
+                            {({ location }) => (
+                                <ImportCSV
+                                    text="Upload CSV"
+                                    location={location}
+                                    onFinish={this.getGroupMembers}
+                                />
+                            )}
+                        </Location>
+                    </Header.Content>
                 </Header>
 
                 <Button onClick={() => window.history.back()}>Back</Button>

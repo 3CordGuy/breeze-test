@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Container, Header, Segment, Menu } from "semantic-ui-react";
-import { Router, Redirect, Location } from "@reach/router";
+import { Router, Redirect } from "@reach/router";
 
 import GroupList from "./Groups/GroupList";
 import GroupMembersList from "./Groups/GroupMembersList";
 import PeopleList from "./People/PeopleList";
 import MainNav from "./MainNav";
-import ImportCSV from "./ImportCSV";
 
 const App = (props) => {
     return (
@@ -19,13 +18,7 @@ const App = (props) => {
                     </span>{" "}
                     Breeze Church Management
                 </Menu.Item>
-                <Menu.Item>
-                    <Location>
-                        {({ location }) => (
-                            <ImportCSV text="Upload CSV" location={location} />
-                        )}
-                    </Location>
-                </Menu.Item>
+                <Menu.Item></Menu.Item>
             </Menu>
             <Header as="h3"></Header>
             <MainNav {...props} />

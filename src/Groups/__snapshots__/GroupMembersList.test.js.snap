@@ -14,11 +14,22 @@ exports[`<GroupMembersList /> should match the snapshot 1`] = `
     as="h1"
     dividing={true}
   >
-    Awesome Group
-     
     <HeaderSubheader>
       Group Members
     </HeaderSubheader>
+    <HeaderContent
+      as="div"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      Awesome Group
+      <Location>
+        <Component />
+      </Location>
+    </HeaderContent>
   </Header>
   <Button
     as="button"
