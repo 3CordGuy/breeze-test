@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Button, Table, Dropdown } from "semantic-ui-react";
+import { Button, Table, Dropdown, Message } from "semantic-ui-react";
 import ImportModal from "./ImportModal";
 import Papa from "papaparse";
 import API from "./API";
 import { navigate } from "@reach/router";
+import _ from "lodash";
 
 const PEOPLE_FIELDS = [
     "id",
@@ -57,6 +58,7 @@ class FileImportButton extends Component {
             groups: [],
             firstRecord: null,
             hasErrors: false,
+            badFields: [],
             importing: false,
             importIntoGroupID: null,
             importButtonValue: "",
@@ -154,6 +156,18 @@ class FileImportButton extends Component {
                     `There was an error parsing your csv. Please check your formatting and try again.\n\n ${error}`,
                 );
             },
+            transform: (value, header) => {
+                // We will use this to validate our fields
+                const ALL_FIELDS = [...PEOPLE_FIELDS, ...GROUP_FIELDS];
+
+                if (!ALL_FIELDS.includes(header))
+                    this.setState({
+                        badFields: _.uniq([...this.state.badFields, header]),
+                        hasErrors: true,
+                    });
+
+                return value;
+            },
             complete: (results) => {
                 let importContext = getImportContext(results.meta.fields);
                 let csvFields = results.meta.fields;
@@ -213,6 +227,8 @@ class FileImportButton extends Component {
             importIntoGroupID,
             importButtonValue,
             importContext,
+            hasErrors,
+            badFields,
         } = this.state;
         const { accept, text } = this.props;
         const hasGroupID = csvFields.includes("group_id");
@@ -222,7 +238,7 @@ class FileImportButton extends Component {
                 <Button primary onClick={this.handleClick} floated="right">
                     <input
                         type="file"
-                        accept={accept}
+                        accept={accept || ".csv"}
                         ref={(fileInput) => (this.inputFileRef = fileInput)}
                         style={{ display: "none" }}
                         value={importButtonValue}
@@ -231,21 +247,39 @@ class FileImportButton extends Component {
                     {text}
                 </Button>
                 <ImportModal
-                    onConfirm={this.handleImport}
+                    onConfirm={
+                        !hasErrors ? this.handleImport : this.dismissModal
+                    }
                     closeModal={this.dismissModal}
                     showModal={open}
-                    confirmText="Let's do it!"
+                    confirmText={!hasErrors ? `Let's do it!` : `Fix and retry`}
                 >
-                    <p>
-                        Good News! We found{" "}
-                        <strong>
-                            {csvData.length} {importContext}
-                        </strong>{" "}
-                        in your file that we can import.
-                    </p>
+                    {!hasErrors ? (
+                        <p>
+                            Good News! We found{" "}
+                            <strong>
+                                {csvData.length} {importContext}
+                            </strong>{" "}
+                            in your file that we can import.
+                        </p>
+                    ) : (
+                        <Message negative>
+                            <Message.Header>
+                                Looks like we encountered some fields that we
+                                can't accept
+                            </Message.Header>
+                            <ul className="list">
+                                {badFields.map((field, idx) => (
+                                    <li key={idx}>{field}</li>
+                                ))}
+                            </ul>
+                        </Message>
+                    )}
+
                     <strong>Preview the first record below:</strong>
                     {firstRecord && getSampleRecord(importContext, firstRecord)}
-                    {!hasGroupID &&
+                    {!hasErrors &&
+                    !hasGroupID &&
                     groups.length &&
                     importContext === "People" ? (
                         <div>
