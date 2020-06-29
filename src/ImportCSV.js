@@ -213,7 +213,7 @@ class FileImportButton extends Component {
     };
 
     dismissModal = () => {
-        this.setState({ open: false });
+        this.setState({ open: false, hasErrors: false, badFields: [] });
         this.props.onFinish && this.props.onFinish();
     };
 
