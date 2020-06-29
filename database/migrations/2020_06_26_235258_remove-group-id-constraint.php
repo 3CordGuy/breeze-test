@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class RemoveGroupIdConstraint extends Migration
 {
@@ -13,10 +14,12 @@ class RemoveGroupIdConstraint extends Migration
      */
     public function up()
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->dropForeign('people_group_id_foreign')->references('id')->on('people');
-            $table->foreign('group_id')->references('id')->on('groups');
-        });
+        if (DB::getDriverName() !== 'sqlite') {
+            Schema::table('people', function (Blueprint $table) {
+                $table->dropForeign('people_group_id_foreign')->references('id')->on('people');
+                $table->foreign('group_id')->references('id')->on('groups');
+            });
+        }
     }
 
     /**
@@ -26,10 +29,11 @@ class RemoveGroupIdConstraint extends Migration
      */
     public function down()
     {
-
-        Schema::table('people', function (Blueprint $table) {
-            $table->dropForeign('people_group_id_foreign')->references('id')->on('groups');
-            $table->foreign('group_id')->references('id')->on('people');
-        });
+        if (DB::getDriverName() !== 'sqlite') {
+            Schema::table('people', function (Blueprint $table) {
+                $table->dropForeign('people_group_id_foreign')->references('id')->on('groups');
+                $table->foreign('group_id')->references('id')->on('people');
+            });
+        }
     }
 }
