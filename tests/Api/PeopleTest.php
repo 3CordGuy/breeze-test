@@ -23,7 +23,6 @@ class PeopleControllerTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJsonFragment($expected);
-
     }
 
     public function testPersonRetrieved()
@@ -47,12 +46,14 @@ class PeopleControllerTest extends TestCase
 
     public function testAllPeopleRetrieved()
     {
-        $person = factory('App\Models\Person', 25)->create();
+        factory('App\Models\Person', 5)->create();
+
+        $count = Person::all()->where('status', '=', 'active')->count();
 
         $response = $this->json('GET', '/api/people');
         $response
             ->assertStatus(200)
-            ->assertJsonCount(25, 'data');
+            ->assertJsonCount($count, 'data');
     }
 
     public function testNoPersonRetrieved()
@@ -87,6 +88,5 @@ class PeopleControllerTest extends TestCase
 
         $response = $this->json('GET', '/api/people/' . $person->id);
         $response->assertStatus(404);
-
     }
 }
