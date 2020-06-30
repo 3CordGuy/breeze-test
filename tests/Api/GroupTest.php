@@ -60,7 +60,7 @@ class GroupControllerTest extends TestCase
     public function testGroupUpdated()
     {
         $group = factory('App\Models\Group')->create();
-        
+
         $updatedName = $this->faker->name();
         $response = $this->json('PUT', '/api/groups/' . $group->id, [
             'name' => $updatedName
@@ -80,6 +80,62 @@ class GroupControllerTest extends TestCase
 
         $response = $this->json('GET', '/api/groups/' . $group->id);
         $response->assertStatus(404);
+    }
 
+    public function testGroupImport()
+    {
+        $groupsData = [
+            [
+                "id" => 1,
+                "name" => "Pawnee Book Club",
+            ],
+            [
+                "id" => 2,
+                "name" => "Johnny Karate and Friends",
+            ],
+        ];
+
+        $importResponse = $this->json('POST', '/api/groups-import/', $groupsData);
+        $importResponse->assertStatus(204);
+
+        $response = $this->json('GET', '/api/groups/');
+        $response
+            ->assertStatus(200)
+            ->assertJsonCount(2, 'data');
+    }
+
+    public function testGroupImportCanUpdate()
+    {
+        $groupsData1 = [
+            [
+                "id" => 1,
+                "name" => "Pawnee Book Club",
+            ],
+            [
+                "id" => 2,
+                "name" => "Johnny Karate and Friends",
+            ]
+        ];
+
+        $importResponse = $this->json('POST', '/api/groups-import/', $groupsData1);
+        $importResponse->assertStatus(204);
+
+        $groupsData2 = [
+            [
+                "id" => 1,
+                "name" => "Pawnee Book Club",
+            ],
+            [
+                "id" => 2,
+                "name" => "Johnny Karate Fan Club",
+            ]
+        ];
+
+
+        $importResponse = $this->json('POST', '/api/groups-import/', $groupsData2);
+        $importResponse->assertStatus(204);
+
+        $updatedGroup = Group::find(2);
+        $this->assertEquals("Johnny Karate Fan Club", $updatedGroup->name);
     }
 }
